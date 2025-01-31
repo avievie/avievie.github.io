@@ -19,6 +19,13 @@
         color: white;
     }
 
+    p {
+        display: flex;
+        justify-content: center;
+        color: white;
+        text-align: center;
+    }
+
     canvas {
         padding-left: 0;
         padding-right: 0;
@@ -45,6 +52,7 @@
         <button type="button" onClick="downloadPart(147, 145, 2, 11, 'antonPal.png')">Download Anton's Palette</button>
         <button type="button" onClick="downloadPart(151, 145, 2, 11, 'anniePal.png')">Download Annie's Palette</button>
     </div>
+    <p>Credits<br>avie-v - Website itself<br>CarlmanZ - Showcase Template used</p>
 </body>
 <script>
     const rgbArrayToHex = rgb => `#${rgb.map(v => v.toString(16).padStart(2, '0')).join('')}`;
