@@ -225,30 +225,35 @@
     }
     function updateColors() {
         context.clearRect(0, 0, canvas.width, canvas.height);
+        var locked;
         var NewL = new ImageData(new Uint8ClampedArray(imgDataL.data), imgDataL.width, imgDataL.height);
         var NewR = new ImageData(new Uint8ClampedArray(imgDataR.data), imgDataR.width, imgDataR.height);
+        locked = new Array(NewL.data.length).fill(false);
         for (let c of antonList) {
             var element = document.getElementById(c.name)
             for (let i = 0; i < NewL.data.length; i += 4) {
-                if (isColor(NewL.data, i, c.color)) {
+                if (isColor(NewL.data, i, c.color) && locked[i] == false) {
                     var rgb = hexToRGBArray(element.value);
                     NewL.data[i] = rgb[0];
                     NewL.data[i + 1] = rgb[1];
                     NewL.data[i + 2] = rgb[2];
                     NewL.data[i + 3] = 255;
+                    locked[i] = true;
                 }
             }
         }
         context.putImageData(NewL, 0, 0);
+        locked = new Array(NewR.data.length).fill(false);
         for (let c of annieList) {
             var element = document.getElementById(c.name)
             for (let i = 0; i < NewR.data.length; i += 4) {
-                if (isColor(NewR.data, i, c.color)) {
+                if (isColor(NewR.data, i, c.color) && locked[i] == false) {
                     var rgb = hexToRGBArray(element.value);
                     NewR.data[i] = rgb[0];
                     NewR.data[i + 1] = rgb[1];
                     NewR.data[i + 2] = rgb[2];
                     NewR.data[i + 3] = 255;
+                    locked[i] = true;
                 }
             }
         }
@@ -256,42 +261,48 @@
 
         var NewLB = new ImageData(new Uint8ClampedArray(imgDataLB.data), imgDataLB.width, imgDataLB.height);
         var NewRB = new ImageData(new Uint8ClampedArray(imgDataRB.data), imgDataRB.width, imgDataRB.height);
+        locked = new Array(NewLB.data.length).fill(false);
         for (let c of antonList) {
             var element = document.getElementById(c.name)
             for (let i = 0; i < NewLB.data.length; i += 4) {
-                if (isColor(NewLB.data, i, c.color) && !isColor(NewLB.data, i, [0, 0, 0, 255])) {
+                if (isColor(NewLB.data, i, c.color) && !isColor(NewLB.data, i, [0, 0, 0, 255]) && locked[i] == false) {
                     var rgb = hexToRGBArray(element.value);
                     NewLB.data[i] = rgb[0];
                     NewLB.data[i + 1] = rgb[1];
                     NewLB.data[i + 2] = rgb[2];
                     NewLB.data[i + 3] = 255;
+                    locked[i] = true;
                 }
-                else if (isColor(NewLB.data, i, [0, 0, 0, 255]) && c.color[3] == 128) {
+                else if (isColor(NewLB.data, i, [0, 0, 0, 255]) && c.color[3] == 128 && locked[i] == false) {
                     var rgb = hexToRGBArray(element.value);
                     NewLB.data[i] = rgb[0];
                     NewLB.data[i + 1] = rgb[1];
                     NewLB.data[i + 2] = rgb[2];
                     NewLB.data[i + 3] = 255;
+                    locked[i] = true;
                 }
             }
         }
         context.putImageData(NewLB, 85, 101);
+        locked = new Array(NewRB.data.length).fill(false);
         for (let c of annieList) {
             var element = document.getElementById(c.name)
             for (let i = 0; i < NewRB.data.length; i += 4) {
-                if (isColor(NewRB.data, i, c.color) && !isColor(NewRB.data, i, [0, 0, 0, 255])) {
+                if (isColor(NewRB.data, i, c.color) && !isColor(NewRB.data, i, [0, 0, 0, 255]) && locked[i] == false) {
                     var rgb = hexToRGBArray(element.value);
                     NewRB.data[i] = rgb[0];
                     NewRB.data[i + 1] = rgb[1];
                     NewRB.data[i + 2] = rgb[2];
                     NewRB.data[i + 3] = 255;
+                    locked[i] = true;
                 }
-                else if (isColor(NewRB.data, i, [0, 0, 0, 255]) && c.color[3] == 128) {
+                else if (isColor(NewRB.data, i, [0, 0, 0, 255]) && c.color[3] == 128 && locked[i] == false) {
                     var rgb = hexToRGBArray(element.value);
                     NewRB.data[i] = rgb[0];
                     NewRB.data[i + 1] = rgb[1];
                     NewRB.data[i + 2] = rgb[2];
                     NewRB.data[i + 3] = 255;
+                    locked[i] = true;
                 }
             }
         }
